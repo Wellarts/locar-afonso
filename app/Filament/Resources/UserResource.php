@@ -46,10 +46,7 @@ class UserResource extends Resource
                     ->multiple()
                     ->preload()
                     ->relationship('roles', 'name'), 
-                Select::make('permissions')
-                    ->multiple()
-                    ->preload()
-                    ->relationship('permissions', 'name') 
+                
             ]);
     }
 
