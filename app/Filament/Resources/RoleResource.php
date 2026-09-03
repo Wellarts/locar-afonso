@@ -34,7 +34,7 @@ class RoleResource extends Resource
                 TextInput::make('name')
                     ->label('Nome'),
                 Select::make('permissions')
-                    ->label('Função')
+                    ->label('Permissões')
                     ->multiple()
                     ->preload()
                     ->relationship('permissions', 'name')
