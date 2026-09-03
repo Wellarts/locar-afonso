@@ -100,6 +100,10 @@ class AdminPanelProvider extends PanelProvider
                                 </svg>
                                 Versão Sistema {{ $version }}
                             </span>
+                            <span>
+                                
+                                <a href="http://163.176.39.255/pt-br/home/inicial" target="_blank" class="text-blue-600 hover:underline">Manual do Sistema</a>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -113,7 +117,7 @@ class AdminPanelProvider extends PanelProvider
 
             ->navigationItems([
                 NavigationItem::make('Manuais')
-                    ->url('https://drive.google.com/drive/folders/1Pt9pkPfRKporD7Q3oLafggKGpHu4Xw46?usp=sharing', shouldOpenInNewTab: true)
+                    ->url('http://163.176.39.255/pt-br/home/inicial', shouldOpenInNewTab: true)
                     ->icon('heroicon-s-question-mark-circle')
                     ->group('Ajuda')
                     ->sort(3),
