@@ -44,7 +44,7 @@ class OrdemServicoResource extends Resource
                             ->relationship('cliente', 'nome')
                             ->searchable()
                             ->required()
-                            ->label('Cliente (Contrato)'),
+                            ->label('Cliente'),
 
                         Forms\Components\Select::make('fornecedor_id')
                             ->relationship('fornecedor', 'nome')

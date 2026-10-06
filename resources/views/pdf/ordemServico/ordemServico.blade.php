@@ -4,272 +4,247 @@
 
 @section('content')
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        color: #222;
-        font-size: 13px;
-        margin: 0;
-        padding: 0%;
-    }
+    /* Paleta suave: vinho #7A2A2A | rosa claro #FAF5F5 | linha #EADFDF | cinza #888 */
 
-    .container {
-        max-width: 100%;
-        margin: 0%;
-        background: #fff;
-        border-radius: 12px;
-        padding: 0%;
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
-    }
-
-    table {
+    /* ========== FAIXA DA OS ========== */
+    .os-bar {
         width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 24px;
-        background: #fff;
-        border-radius: 8px;
+        margin: 0 0 18px 0;
+        border-top: 1px solid #EADFDF;
+        border-bottom: 1px solid #EADFDF;
     }
 
-    th,
-    td {
-        padding: 10px;
-        border-bottom: 1px solid #e9ecef;
-    }
-
-    th {
-        background: #f2f2f4;
-        color: #2d3a4a;
-        font-weight: 600;
-        text-align: right;
-    }
-
-    tr:last-child td {
-        border-bottom: none;
-    }
-
-    .logo {
-        max-width: 120px;
-        border-radius: 6px;
-    }
-
-    .signature {
-        margin-top: 32px;
-        display: flex;
-        gap: 48px;
-        justify-content: center;
-    }
-
-    .signature-box {
-        flex: 1;
+    .os-bar td {
         text-align: center;
-    }
-
-    .signature-line {
-        border-bottom: 2px solid #b0b7c3;
-        margin: 0 auto 8px auto;
-        width: 80%;
-        height: 32px;
-        display: block;
-    }
-
-    .right {
-        text-align: right;
-    }
-
-    .header-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    .header-table td {
+        padding: 9px 10px;
+        font-size: 12px;
+        color: #777;
+        background: #fff;
         border: none;
-        vertical-align: top;
     }
 
-    .company-name {
-        font-size: 1.2em;
-        color: #000308;
+    .os-bar .os-number {
+        font-size: 14px;
         font-weight: bold;
+        color: #7A2A2A;
+        letter-spacing: 1px;
     }
 
-    .company-info {
-        text-align: right;
-        color: #6b7280;
-        font-size: 12px;
-    }
-
-    .os-info {
-        text-align: right;
-        margin-top: 5px;
-        font-size: 12px;
-    }
-
-    fieldset {
-        border: 1px solid #b0b7c3;
-        border-radius: 8px;
-        padding: 16px;
-        margin-bottom: 24px;
-    }
-
-    legend {
+    /* ========== SEÇÕES ========== */
+    .os-section-title {
+        color: #7A2A2A;
+        font-size: 11px;
         font-weight: bold;
-        color: #2d3a4a;
-        padding: 0 8px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        padding: 0 0 6px 0;
+        margin: 0;
+        border-bottom: 2px solid #E3CFCF;
+    }
+
+    .os-box {
+        padding: 0;
+        margin-bottom: 22px;
+    }
+
+    .os-box table { margin: 0; }
+
+    /* ========== TABELA DE DADOS ========== */
+    .data-table td,
+    .data-table th {
+        padding: 8px 8px;
+        border-bottom: 1px solid #F0E8E8;
+        font-size: 11px;
+        background: #fff;
     }
 
     .data-table th {
+        color: #999;
+        font-weight: normal;
         text-align: right;
         width: 15%;
+        white-space: nowrap;
+        border-bottom: 1px solid #F0E8E8;
     }
 
     .data-table td {
         text-align: left;
-        width: 35%;
+        width: 18%;
+        color: #333;
+        font-size: 12px;
     }
 
+    .data-table tr:last-child th,
+    .data-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* ========== TABELA DE ITENS ========== */
     .items-table th {
+        background: #FAF5F5;
+        color: #7A2A2A;
+        font-size: 10px;
+        font-weight: bold;
         text-align: left;
-        font-size: 12px;
+        padding: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid #D9BFBF;
     }
 
     .items-table td {
         font-size: 11px;
+        padding: 8px;
+        border-bottom: 1px solid #F0E8E8;
+        vertical-align: middle;
+        color: #333;
     }
 
-    .total-row {
+    .items-table .center {
+        text-align: center;
+    }
+
+    .items-table .money {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    /* ========== TOTAL ========== */
+    .total-table {
+        width: 100%;
+        background: #FAF5F5;
+        margin-top: 10px;
+    }
+
+    .total-table td {
+        border: none;
+        padding: 12px 10px;
+        background: #FAF5F5;
+    }
+
+    .total-table .total-label {
+        text-align: right;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #999;
+        width: 70%;
+    }
+
+    .total-table .total-value {
         text-align: right;
         font-size: 16px;
         font-weight: bold;
-        padding: 10px;
-    }
-
-    /* Melhorias para impressão */
-    @media print {
-        body {
-            font-size: 11px;
-        }
-        
-        .container {
-            box-shadow: none;
-        }
-        
-        fieldset {
-            page-break-inside: avoid;
-        }
+        color: #7A2A2A;
+        white-space: nowrap;
     }
 </style>
 
-<div class="container">
-    <!-- Cabeçalho -->
-    <table class="header-table">
-         <tr>
-            <td colspan="2" class="os-info">
-                <strong style="font-size:12pt;color:#000510;">Ordem de Serviço: </strong>
-                <span style="color:#6b7280;">OS - 00{{ $ordemServico->id }}</span><br>
-                <span style="color:#6b7280;">Data: {{ \Carbon\Carbon::parse($ordemServico->data_emissao)->format('d/m/Y') }}</span>
-            </td>
+<!-- Número e data da OS -->
+<table class="os-bar">
+    <tr>
+        <td class="os-number">ORDEM DE SERVIÇO Nº OS - 00{{ $ordemServico->id }}</td>
+        <td>Data de emissão: <strong>{{ \Carbon\Carbon::parse($ordemServico->data_emissao)->format('d/m/Y') }}</strong></td>
+    </tr>
+</table>
+
+<!-- Dados da Ordem de Serviço -->
+<div class="os-section-title">Dados da Ordem de Serviço</div>
+<div class="os-box">
+    <table class="data-table">
+        <tr>
+            <th>Cliente:</th>
+            <td colspan="3">{{ $ordemServico->cliente->nome ?? '' }}</td>
+            <th>Pagamento:</th>
+            <td>{{ $ordemServico->formaPagamento->nome ?? '' }}</td>
+        </tr>
+        <tr>
+            <th>Fornecedor:</th>
+            <td>{{ $ordemServico->fornecedor->nome ?? '' }}</td>
+            <th>Cidade:</th>
+            <td>{{ $ordemServico->fornecedor->Cidade->nome ?? '' }}</td>
+            <th>Estado:</th>
+            <td>{{ $ordemServico->fornecedor->Estado->nome ?? '' }}</td>
+        </tr>
+        <tr>
+            <th>Veículo:</th>
+            <td>{{ $ordemServico->veiculo->modelo ?? '' }}</td>
+            <th>Placa:</th>
+            <td>{{ $ordemServico->veiculo->placa ?? '' }}</td>
+            <th>Cor:</th>
+            <td>{{ $ordemServico->veiculo->cor ?? '' }}</td>
+        </tr>
+        <tr>
+            <th>Km Troca:</th>
+            <td>{{ $ordemServico->km_troca }}</td>
+            <th>Autorizado por:</th>
+            <td colspan="3">{{ $ordemServico->user->name ?? '' }}</td>
         </tr>
     </table>
-
-    <!-- Dados da Ordem de Serviço -->
-    <fieldset>
-        <legend>Dados da Ordem de Serviço</legend>
-        <table class="data-table">
-            <tr>
-                <th>Cliente (Contrato):</th>
-                <td colspan="3" style="font-size: 12px">{{ $ordemServico->cliente->nome ?? '' }}</td>
-                <th>Pagamento:</th>
-                <td style="font-size: 12px">{{ $ordemServico->formaPagamento->nome ?? '' }}</td>
-            </tr>
-            <tr>
-                <th>Fornecedor:</th>
-                <td style="font-size: 12px">{{ $ordemServico->fornecedor->nome ?? '' }}</td>
-                <th>Cidade:</th>
-                <td style="font-size: 12px">{{ $ordemServico->fornecedor->Cidade->nome ?? '' }}</td>
-                <th>Estado:</th>
-                <td style="font-size: 12px">{{ $ordemServico->fornecedor->Estado->nome ?? '' }}</td>
-            </tr>
-            <tr>
-                <th>Veículo:</th>
-                <td style="font-size: 12px">{{ $ordemServico->veiculo->modelo ?? '' }}</td>
-                <th>Placa:</th>
-                <td style="font-size: 12px">{{ $ordemServico->veiculo->placa ?? '' }}</td>
-                <th>Cor:</th>
-                <td style="font-size: 12px">{{ $ordemServico->veiculo->cor ?? '' }}</td>
-            </tr>
-            <tr>
-                <th>Km Troca:</th>
-                <td style="font-size: 12px">{{ $ordemServico->km_troca }}</td>
-                <th>Autorizado por:</th>
-                <td colspan="2" style="font-size: 12px">{{ $ordemServico->user->name ?? '' }}</td>
-            </tr>
-        </table>
-    </fieldset>
-
-    <!-- Itens da OS -->
-    <fieldset>
-        <legend>Itens da Ordem de Serviço</legend>
-        <table class="items-table">
-            <thead>
-                <tr>
-                    <th style="width: 5%;">#</th>
-                    <th style="width: 10%;">Categoria</th>
-                    <th style="width: 12%;">Tipo</th>
-                    <th style="width: 20%;">Peça/Serviço</th>
-                    <th style="width: 25%;">Descrição</th>
-                    <th style="width: 8%; text-align: center;">Qtd</th>
-                    <th style="width: 10%;">V. Unitário</th>
-                    <th style="width: 10%;">V. Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($ordemServico->itens as $index => $item)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->pecaServico->tipo == 0 ? 'Peça' : 'Serviço' ?? '' }}</td>
-                        <td>
-                            @php
-                                $tipos = [
-                                    1 => 'Preventiva',
-                                    2 => 'Corretiva',
-                                    3 => 'Avaria',
-                                    4 => 'Multa',
-                                    5 => 'Outros'
-                                ];
-                            @endphp
-                            {{ $tipos[$item->tipo] ?? '' }}
-                        </td>
-                        <td>{{ $item->pecaServico->nome ?? '' }}</td>
-                        <td>{{ $item->descricao }}</td>
-                        <td style="text-align: center;">{{ $item->quantidade }}</td>
-                        <td>R$ {{ number_format($item->valor_unitario, 2, ',', '.') }}</td>
-                        <td>R$ {{ number_format($item->valor_total, 2, ',', '.') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        
-        <table>
-            <tr>
-                <td class="total-row">
-                    <strong>Total Geral: R$ {{ number_format($ordemServico->valor_total, 2, ',', '.') }}</strong>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-
-    <!-- Assinaturas (comentadas) -->
-    {{-- 
-    <div class="signature">
-        <div class="signature-box">
-            <span class="signature-line"></span>
-            Assinatura do Cliente
-        </div>
-        <div class="signature-box">
-            <span class="signature-line"></span>
-            Assinatura da Empresa
-        </div>
-    </div>
-    --}}
 </div>
+
+<!-- Itens da OS -->
+<div class="os-section-title">Itens da Ordem de Serviço</div>
+<div class="os-box">
+    @php
+        $tipos = [
+            1 => 'Preventiva',
+            2 => 'Corretiva',
+            3 => 'Avaria',
+            4 => 'Multa',
+            5 => 'Outros'
+        ];
+    @endphp
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 10%;">Categoria</th>
+                <th style="width: 12%;">Tipo</th>
+                <th style="width: 19%;">Peça/Serviço</th>
+                <th style="width: 24%;">Descrição</th>
+                <th style="width: 6%; text-align: center;">Qtd</th>
+                <th style="width: 12%; text-align: right;">V. Unitário</th>
+                <th style="width: 12%; text-align: right;">V. Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($ordemServico->itens as $index => $item)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ ($item->pecaServico->tipo ?? null) === null ? '' : ($item->pecaServico->tipo == 0 ? 'Peça' : 'Serviço') }}</td>
+                    <td>{{ $tipos[$item->tipo] ?? '' }}</td>
+                    <td>{{ $item->pecaServico->nome ?? '' }}</td>
+                    <td>{{ $item->descricao }}</td>
+                    <td class="center">{{ $item->quantidade }}</td>
+                    <td class="money">R$ {{ number_format($item->valor_unitario, 2, ',', '.') }}</td>
+                    <td class="money">R$ {{ number_format($item->valor_total, 2, ',', '.') }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <table class="total-table">
+        <tr>
+            <td class="total-label">Total Geral</td>
+            <td class="total-value">R$ {{ number_format($ordemServico->valor_total, 2, ',', '.') }}</td>
+        </tr>
+    </table>
+</div>
+
+<!-- Assinaturas (comentadas) -->
+{{--
+<table style="margin-top: 40px;">
+    <tr>
+        <td style="width: 50%; text-align: center; border: none;">
+            <div style="border-bottom: 1px solid #ccc; width: 80%; margin: 0 auto 6px auto; height: 30px;"></div>
+            Assinatura do Cliente
+        </td>
+        <td style="width: 50%; text-align: center; border: none;">
+            <div style="border-bottom: 1px solid #ccc; width: 80%; margin: 0 auto 6px auto; height: 30px;"></div>
+            Assinatura da Empresa
+        </td>
+    </tr>
+</table>
+--}}
 @endsection

@@ -4,202 +4,148 @@
 
 @section('content')
 <style>
-    /* Estilos principais mantidos do layout original */
-    body {
-        font-family: Arial, sans-serif;
-        color: #222;
-        font-size: 13px;
-        margin: 0;
-        padding: 0;
-        background: #fff;
-    }
+    /* Paleta suave: vinho #7A2A2A | rosa claro #FAF5F5 | linha #EADFDF | cinza #999 */
 
-    .container {
-        max-width: 100%;
-        margin: 0;
-        background: #fff;
-        border-radius: 12px;
-        padding: 0;
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
-    }
-
-    h1 {
-        text-align: center;
-        color: #2d3a4a;
-        margin: 24px 0 24px 0;
-        font-weight: 700;
-        font-size: 1.3em;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 24px;
-        background: #fff;
-        border-radius: 8px;
-    }
-
-    th,
-    td {
-        padding: 8px;
-        border-bottom: 1px solid #e9ecef;
-        font-size: 8px;
-    }
-
-    th {
-        background: #f2f2f4;
-        color: #2d3a4a;
-        font-weight: 600;
-        text-align: right;
-    }
-
-    tr:last-child td {
-        border-bottom: none;
-    }
-
-    td {
-        color: #222;
-    }
-
-    .status-aberta {
-        color: #ce3131;
-        font-weight: 600;
-    }
-
-    .status-fechada {
-        color: #38a169;
-        font-weight: 600;
-    }
-
-    .status-cancelada {
-        color: #e53e3e;
-        font-weight: 600;
-    }
-
-    /* Estilos para o cabeçalho da empresa */
-    .header-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    .header-table td {
-        border: none;
-        vertical-align: top;
-    }
-
-    .company-logo {
-        max-width: 90px;
-        height: auto;
-    }
-
-    .company-info {
-        text-align: right;
-        color: #6b7280;
-    }
-
-    .company-name {
-        font-size: 1.2em;
-        color: #000308;
+    .os-section-title {
+        color: #7A2A2A;
+        font-size: 11px;
         font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        padding: 0 0 6px 0;
+        margin: 0 0 10px 0;
+        border-bottom: 2px solid #E3CFCF;
     }
 
-    .report-date {
-        text-align: right;
-        margin-top: 10px;
-        font-size: 14px;
-        color: #000510;
+    /* ========== TABELA PRINCIPAL ========== */
+    .rel-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 0 24px 0;
     }
 
-    /* Estilos para sub-tabelas de itens */
+    .rel-table > thead > tr > th {
+        background: #FAF5F5;
+        color: #7A2A2A;
+        font-size: 8px;
+        font-weight: bold;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 8px 6px;
+        border-bottom: 1px solid #D9BFBF;
+    }
+
+    .rel-table > tbody > tr > td {
+        font-size: 8px;
+        color: #333;
+        padding: 8px 6px;
+        border-bottom: 1px solid #F0E8E8;
+        background: #fff;
+    }
+
+    /* Status */
+    .status-aberta    { color: #B8863B; font-weight: 600; }
+    .status-fechada   { color: #5B8F72; font-weight: 600; }
+    .status-cancelada { color: #B05555; font-weight: 600; }
+
+    /* ========== SUB-TABELA DE ITENS ========== */
     .sub-table {
         width: 100%;
-        margin-bottom: 0;
-        background: #f9f9fa;
-        border-radius: 6px;
+        margin: 0;
+        border-collapse: collapse;
+        background: #FDFAFA;
     }
 
     .sub-table th {
-        background: #e9ecef;
-        font-size: 8px;
+        background: #FDFAFA;
+        color: #999;
+        font-size: 7px;
+        font-weight: bold;
         text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 6px 6px 4px 18px;
+        border-bottom: 1px solid #EADFDF;
     }
 
     .sub-table td {
         font-size: 8px;
-        border-bottom: 1px solid #dee2e6;
+        color: #555;
+        padding: 6px 6px 6px 18px;
+        border-bottom: 1px solid #F3ECEC;
+        background: #FDFAFA;
     }
 
-    .sub-table tr:last-child td {
-        border-bottom: none;
-    }
-
-    .totals-row {
+    .sub-table td.totals-row {
         text-align: right;
-        font-size: 13px;
-        background: #f2f2f4;
+        font-size: 8px;
+        color: #7A2A2A;
+        background: #FAF5F5;
+        border-bottom: none;
+        padding: 7px 6px;
     }
 
-    /* Estilos para totais gerais */
+    .sem-itens {
+        padding-left: 18px;
+        color: #999;
+        background: #FDFAFA;
+    }
+
+    /* ========== RESUMO DE TOTAIS ========== */
     .summary-table {
         width: 100%;
-        margin-top: 32px;
+        margin: 8px 0 0 0;
         border-collapse: collapse;
     }
 
     .summary-table td {
-        padding: 10px;
-        border-bottom: 1px solid #e9ecef;
+        padding: 7px 8px;
+        font-size: 10px;
+        color: #333;
+        border-bottom: 1px solid #F0E8E8;
+        background: #fff;
     }
 
-    .summary-header {
-        font-size: 10px;
-        background: #f2f2f4;
-        padding: 10px;
+    .summary-table td.summary-header {
+        font-size: 9px;
         font-weight: bold;
+        color: #7A2A2A;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: #FAF5F5;
+        border-bottom: 1px solid #E3CFCF;
+        padding: 8px;
     }
 
     .summary-item {
-        padding-left: 24px;
+        padding-left: 20px;
     }
 
     .summary-value {
         text-align: right;
+        white-space: nowrap;
     }
 
     .spacer-row {
-        height: 12px;
+        height: 10px;
+        border-bottom: none;
     }
 
     .final-total {
         text-align: right;
-        font-size: 12px;
-        padding-top: 16px;
-    }
-
-    /* Melhorias para impressão */
-    @media print {
-        body {
-            font-size: 11px;
-        }
-        
-        .container {
-            box-shadow: none;
-        }
-        
-        .header-table {
-            page-break-inside: avoid;
-        }
+        font-size: 11px;
+        color: #7A2A2A;
+        padding-top: 14px;
+        border-bottom: none;
     }
 </style>
 
 <div class="container">
-    <!-- Cabeçalho com logo e informações da empresa -->
-   
-    <h1>Relatório de Ordens de Serviço</h1>
-    
+    <div class="os-section-title">Ordens de Serviço</div>
+
     <!-- Tabela principal de ordens de serviço -->
-    <table>
+    <table class="rel-table">
         <thead>
             <tr>
                 <th style="text-align: left;">#</th>
@@ -244,7 +190,7 @@
                 <!-- Sub-tabela de itens da ordem de serviço -->
                 @if (isset($ordem->itens) && count($ordem->itens))
                     <tr>
-                        <td colspan="9" style="padding: 0;">
+                        <td colspan="9" style="padding: 0; border-bottom: 1px solid #EADFDF;">
                             <table class="sub-table">
                                 <thead>
                                     <tr>
@@ -282,7 +228,7 @@
                                         @endphp
                                         <tr>
                                             <td>
-                                                {{ $item->pecaServico->tipo == 1 ? 'Serviço' : 'Peça' ?? '' }}
+                                                {{ ($item->pecaServico->tipo ?? null) == 1 ? 'Serviço' : 'Peça' }}
                                             </td>
                                             <td>
                                                 @php
@@ -319,7 +265,7 @@
                     </tr>
                 @else
                     <tr>
-                        <td colspan="9" style="padding-left: 24px; background: #f9f9fa;">
+                        <td colspan="9" class="sem-itens">
                             <em>Sem itens</em>
                         </td>
                     </tr>
@@ -370,6 +316,7 @@
         }
     @endphp
 
+    <div class="os-section-title" style="margin-top: 26px;">Resumo de Totais</div>
     <table class="summary-table">
         <!-- Totais por Veículo -->
         <tr>

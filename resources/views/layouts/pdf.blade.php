@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Relatório PDF')</title>
-    
+
     <style>
-        /* Margens iguais e centralização forçada */
-        @page { 
+        /* Paleta suave: vinho #7A2A2A | rosa claro #FAF5F5 | linha #EADFDF | cinza #888 */
+
+        @page {
             margin: 1.5cm;
             size: A4 portrait;
         }
@@ -23,50 +24,63 @@
             margin: 0 auto;
             padding: 0;
             width: 100%;
-            max-width: 21cm; /* Largura de A4 menos margens */
+            max-width: 21cm;
         }
 
         .report-container {
             width: 100%;
             margin: 0 auto;
             background: #fff;
-            box-shadow: none;
             padding: 0;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
+        /* ========== CABEÇALHO (apenas tabela; DomPDF não suporta display:flex) ========== */
+        .pdf-header-table {
             width: 100%;
+            margin: 0 0 18px 0;
+            border-collapse: collapse;
         }
 
-        .header img {
-            height: 60px;
-            max-width: 100%;
+        .pdf-header-cell {
+            background: #FAF5F5;
+            color: #333;
+            text-align: center;
+            padding: 16px 20px;
+            border-bottom: 2px solid #C9A3A3;
         }
 
-        .header-info {
-            text-align: right;
+        .pdf-logo {
+            height: 56px;
+            width: auto;
+            max-width: 160px;
+            margin-bottom: 6px;
         }
 
-        .header-info h1 {
-            font-size: 1.6rem;
+        .pdf-company {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin: 0;
-            color: #2c3e50;
-            font-weight: 700;
+            color: #7A2A2A;
         }
 
-        .header-info p {
-            margin: 2px 0;
-            font-size: 0.9rem;
-            color: #666;
+        .pdf-title {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+            margin: 3px 0 8px 0;
         }
 
-        /* Conteúdo centralizado */
+        .pdf-meta {
+            font-size: 10px;
+            line-height: 1.6;
+            color: #777;
+            margin: 0;
+        }
+
+        /* ========== CONTEÚDO ========== */
         .main-content {
             width: 100%;
             margin: 0 auto;
@@ -75,42 +89,37 @@
 
         .section-title {
             text-align: center;
-            color: #6d6d6d;
-            font-size: 1.2rem;
+            color: #7A2A2A;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 8px;
         }
 
         .badge {
             display: inline-block;
-            background: #777f1a;
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 18px;
-            font-size: 0.9rem;
+            background: #F1E6E6;
+            color: #7A2A2A;
+            padding: 5px 12px;
+            border-radius: 14px;
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
         .info-line {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
             font-size: 0.95rem;
-            margin: 20px 0;
+            margin: 18px 0;
             padding: 12px 16px;
-            background: #f9fafc;
-            border: 1px solid #eee;
-            border-radius: 10px;
+            background: #FAF5F5;
+            border: 1px solid #EADFDF;
+            border-radius: 8px;
         }
 
         .info-item strong {
-            color: #2c3e50;
+            color: #7A2A2A;
             font-weight: 600;
             margin-right: 6px;
         }
 
-        /* Tabelas centralizadas */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -125,14 +134,15 @@
         }
 
         th {
-            background: #f4f6f9;
+            background: #FAF5F5;
             font-weight: 600;
-            color: #2c3e50;
+            color: #7A2A2A;
+            border-bottom: 1px solid #D9BFBF;
         }
 
         td {
             background: #fff;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #F0E8E8;
         }
 
         .text-center {
@@ -144,21 +154,17 @@
             font-size: 1rem;
             padding: 15px;
             background: transparent;
-            border: 1px solid #eee;
+            border: 1px solid #EADFDF;
             border-radius: 6px;
             page-break-inside: avoid;
-            -webkit-column-break-inside: avoid;
-            break-inside: avoid;
         }
 
         .summary-row {
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 8px;
         }
 
         .summary-row strong {
-            color: #2c3e50;
+            color: #7A2A2A;
             font-weight: 600;
         }
 
@@ -167,89 +173,72 @@
             margin-top: 36px;
         }
 
-        /* Evita que elementos com fundo sejam divididos entre páginas */
-        .info-line, .summary, tr, thead {
-            page-break-inside: avoid;
-            -webkit-column-break-inside: avoid;
-            break-inside: avoid;
+        .signature hr {
+            width: 60%;
+            margin: 20px auto 10px;
+            border: 0;
+            border-top: 1px solid #ccc;
         }
 
         thead { display: table-header-group; }
         tfoot { display: table-footer-group; }
 
-        .signature hr {
-            width: 60%;
-            margin: 20px auto 10px;
-            border: 0;
-            border-top: 1px solid #bbb;
-        }
-
         .footer {
             text-align: center;
             margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            font-size: 0.85rem;
-            color: #888;
+            padding-top: 10px;
+            border-top: 1px solid #EADFDF;
+            font-size: 0.8rem;
+            color: #999;
             width: 100%;
         }
     </style>
 </head>
 
 <body>
+    @php
+        $p = null;
+        try {
+            $p = \Illuminate\Support\Facades\DB::table('parametros')->first();
+        } catch (\Throwable $e) {
+            $p = null;
+        }
+        $companyName    = $p->empresa_nome ?? ($p->nome_empresa ?? ($p->nome ?? 'Nome da Empresa'));
+        $companyCnpj    = $p->cpf_cnpj ?? '00.000.000/0000-00';
+        $companyAddress = $p->endereco_completo ?? 'Sem Endereço Informado';
+        $companyPhones  = $p->telefone ?? '(00) 0000-0000';
+        $companyInsta   = $p->redes_sociais ?? '@empresa';
+        $logo           = $p->logo ?? null;
+        $logoPath       = $logo ? public_path('storage/' . $logo) : null;
+        $logoExiste     = $logoPath && file_exists($logoPath);
+    @endphp
+
     <div class="report-container">
-        <header class="header">
-            <table style="width:100%;">
-                @php
-                    $p = null;
-                    try {
-                        $p = DB::table('parametros')->first();
-                    } catch (Exception $e) {
-                        $p = null;
-                    }
-                    $companyName = $p->empresa_nome ?? ($p->nome_empresa ?? ($p->nome ?? 'Nome da Empresa'));
-                    $companyCnpj = $p->cpf_cnpj ?? '00.000.000/0000-00';
-                    $companyAddress = $p->endereco_completo ?? 'Sem Endereço Informado';
-                    $companyPhones = $p->telefone ?? '(00) 0000-0000';
-                    $companyInsta = $p->redes_sociais ?? '@empresa';
-                    $logo = $p->logo;
-                @endphp
-                <tr>
-                    <td style="width: 80px; vertical-align: top;">
-                        <img src="{{ public_path('storage/' . $logo) }}"
-                            alt="Logo da Empresa" style="height: 60px; width: auto; max-width: 120px;">
-                    </td>
-                    <td style="text-align: right;">
-                        <div class="header-info">
-                            <h2 style="font-size: 1.6rem; margin: 0; color: #2563eb; font-weight: 700;">
-                                @yield('title', 'Relatório')</h2>
-                            <p style="font-size: 12px; color: #2563eb; font-weight:700; margin:6px 0 2px;">
-                                {{ $companyName }}</p>
-                            <p style="font-size: 10px; color: #aaa; margin:0;">
-                                <br>
-                                CNPJ/CPF: {{ $companyCnpj }}<br>
-                                Endereço: {{ $companyAddress }}
-                            </p>
-                            <p style="font-size: 10px; color: #aaa;">
-                                Telefones: {{ $companyPhones }}
-                            </p>
-                            <p style="font-size: 10px; color: #aaa;">
-                                Redes Sociais: {{ $companyInsta }}
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </header>
-        
+        <table class="pdf-header-table">
+            <tr>
+                <td class="pdf-header-cell">
+                    @if ($logoExiste)
+                        <img class="pdf-logo" src="{{ $logoPath }}" alt="Logo da Empresa"><br>
+                    @endif
+                    <div class="pdf-company">{{ $companyName }}</div>
+                    <div class="pdf-title">@yield('title', 'Relatório')</div>
+                    <div class="pdf-meta">
+                        CNPJ/CPF: {{ $companyCnpj }} &nbsp;|&nbsp; Telefones: {{ $companyPhones }}<br>
+                        {{ $companyAddress }}<br>
+                        {{ $companyInsta }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+
         <div class="main-content">
             @yield('content')
             @yield('summary')
         </div>
-        
-        <footer class="footer">
+
+        <div class="footer">
             Documento gerado em {{ date('d/m/Y H:i') }}
-        </footer>
+        </div>
     </div>
 </body>
 
